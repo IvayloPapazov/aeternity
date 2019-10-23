@@ -336,13 +336,13 @@ compile_(SophiaVsn, File) when SophiaVsn == ?SOPHIA_LIMA_FATE; SophiaVsn == ?SOP
     {ok, AsmBin} = file:read_file(File),
     Source = binary_to_list(AsmBin),
     case aeso_compiler:from_string(Source, [{backend, fate}]) of
-        {ok, Map} -> {ok, aect_sophia:serialize(Map, latest_sophia_contract_version())};
+        {ok, Map} -> {ok, aect_sophia:serialize(Map, ?SOPHIA_CONTRACT_VSN_3)};
         {error, E} = Err -> io:format("~s\n", [E]), Err
     end;
 compile_(SophiaVsn, File) when SophiaVsn == ?SOPHIA_LIMA_AEVM; SophiaVsn == ?SOPHIA_IRIS_AEVM ->
     {ok, ContractBin} = file:read_file(File),
     case aeso_compiler:from_string(binary_to_list(ContractBin), []) of
-        {ok, Map}        -> {ok, aect_sophia:serialize(Map, latest_sophia_contract_version())};
+        {ok, Map}        -> {ok, aect_sophia:serialize(Map, ?SOPHIA_CONTRACT_VSN_3)};
         {error, _} = Err -> Err
     end;
 compile_(LegacyVersion, File) ->
